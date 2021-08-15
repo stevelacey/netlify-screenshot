@@ -1,7 +1,9 @@
 Netlify Screenshot
 ==================
 
-Screenshot webpages to render social media cards on-the-fly using Puppeteer; largely based on [how Pieter generates shareable pictures](https://levels.io/phantomjs-social-media-share-pictures) for [Nomad List](https://nomadlist.com), and how Steve did it for [Coworkations](https://coworkations.com) with [cardserver](https://github.com/stevelacey/cardserver).
+Screenshot webpages to render social media cards on-the-fly using Puppeteer; largely based on [how Pieter generates shareable pictures](https://levels.io/phantomjs-social-media-share-pictures) for [Nomad List](https://nomadlist.com), and how I did them for [Coworkations](https://coworkations.com) with [cardserver](https://github.com/stevelacey/cardserver).
+
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/stevelacey/netlify-screenshot)
 
 | [![Coworkations](https://coworkations.com/cards/coworkations.png)](https://coworkations.com/cards/coworkations.png) [📄 HTML](https://coworkations.com/cards/coworkations) [🖼️ PNG](https://coworkations.com/cards/coworkations.png) | [![Hacker Paradise: Cape Town South Africa](https://coworkations.com/cards/hacker-paradise/cape-town-south-africa.png)](https://coworkations.com/cards/hacker-paradise/cape-town-south-africa.png) [📄 HTML](https://coworkations.com/cards/hacker-paradise/cape-town-south-africa) [🖼️ PNG](https://coworkations.com/cards/hacker-paradise/cape-town-south-africa.png) |
 | --: | --: |
@@ -11,13 +13,15 @@ Screenshot webpages to render social media cards on-the-fly using Puppeteer; lar
 Setup
 -----
 
-After creating the site in Netlify, set the `BASE_URL` environment variable and it should be good to go, this is what gets prepended to the path when making requests to your web server:
+After deploying to Netlify and setting `BASE_URL` the site should be good to go, try visiting `https://{site-name}.netlify.app/.netlify/functions/screenshot` for a capture of your homepage.
+
+Any additional path that comes after `/.netlify/functions/screenshot` is used in the request to your webserver:
 
 ```
-https://{site-name}.netlify.app/.netlify/functions/screenshot/{path} -> {BASE_URL}/{path}
+https://{site-name}.netlify.app/.netlify/functions/screenshot/**/* -> {BASE_URL}/**/*
 ```
 
-Environment variables can be set from `Site Settings > Build & deploy > Environment`, the value should be the root domain of your website e.g. `https://example.com`.
+If you want to change the `BASE_URL` edit the site's environment variables from `Site Settings > Build & deploy > Environment`, the value should be the root domain of your website e.g. `https://example.com`.
 
 
 Usage

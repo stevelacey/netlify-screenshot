@@ -1,2 +1,5 @@
 [build]
   functions = "functions/"
+
+[template.environment]
+  BASE_URL = "Base URL e.g. https://example.com"
