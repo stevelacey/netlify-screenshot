@@ -3,3 +3,18 @@
 
 [template.environment]
   BASE_URL = "Base URL e.g. https://example.com"
+
+[[redirects]]
+  from = "/print/*"
+  to = "/.netlify/functions/print/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/screenshot/*"
+  to = "/.netlify/functions/screenshot/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/screenshot/:splat"
+  status = 301

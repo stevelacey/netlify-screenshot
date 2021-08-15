@@ -13,12 +13,12 @@ Screenshot webpages to render social media cards on-the-fly using Puppeteer; lar
 Setup
 -----
 
-After deploying to Netlify and setting `BASE_URL` the site should be good to go, try visiting `https://{site-name}.netlify.app/.netlify/functions/screenshot` for a capture of your homepage.
+After deploying to Netlify and setting `BASE_URL` the site should be good to go, try visiting `https://{site-name}.netlify.app/screenshot` for a capture of your homepage.
 
-Any additional path that comes after `/.netlify/functions/screenshot` is used in the request to your webserver:
+Any additional path that comes after `/screenshot` is used in the request to your webserver:
 
 ```
-https://{site-name}.netlify.app/.netlify/functions/screenshot/**/* -> {BASE_URL}/**/*
+https://{site-name}.netlify.app/screenshot/**/* -> {BASE_URL}/**/*
 ```
 
 If you want to change the `BASE_URL` edit the site's environment variables from `Site Settings > Build & deploy > Environment`, the value should be the root domain of your website e.g. `https://example.com`.
@@ -30,17 +30,17 @@ Usage
 Netlify Screenshot performs HTML requests based on PNG requests like so:
 
 | 🖼 PNG (Netlify request) | 📄 HTML (webserver request) |
-| :-------------------------------------------------- | :---------------------------------------------- |
-| https://stevelacey.netlify.app/.netlify/functions/screenshot/cards/steve.png | https://steve.ly/cards/steve |
-| https://coworkations.netlify.app/.netlify/functions/screenshot/cards/coworkations.png | https://coworkations.com/cards/coworkations |
-| https://coworkations.netlify.app/.netlify/functions/screenshot/cards/hacker-paradise.png | https://coworkations.com/cards/hacker-paradise |
-| https://coworkations.netlify.app/.netlify/functions/screenshot/cards/pack/ubud-bali-2.png | https://coworkations.com/cards/pack/ubud-bali-2 |
+| :--------------------------------------------------------------------- | :---------------------------------------------- |
+| https://stevelacey.netlify.app/screenshot/cards/steve.png              | https://steve.ly/cards/steve                    |
+| https://coworkations.netlify.app/screenshot/cards/coworkations.png     | https://coworkations.com/cards/coworkations     |
+| https://coworkations.netlify.app/screenshot/cards/hacker-paradise.png  | https://coworkations.com/cards/hacker-paradise  |
+| https://coworkations.netlify.app/screenshot/cards/pack/ubud-bali-2.png | https://coworkations.com/cards/pack/ubud-bali-2 |
 
 If you want to serve your cards on the same domain as your app, you can route PNG traffic to Netlify via NGINX:
 
 ```
 location ~ ^/(cards/.*\.png)$ {
-  proxy_pass http://{site-name}.netlify.app/.netlify/functions/screenshot/$1;
+  proxy_pass http://{site-name}.netlify.app/screenshot/$1;
 }
 ```
 

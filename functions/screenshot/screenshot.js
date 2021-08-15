@@ -6,8 +6,8 @@ const height = 630
 const maxage = 60 * 60 * 24 * 7
 
 exports.handler = async (event, context) => {
-  const path = event.path.replace("/.netlify/functions/screenshot/", "").replace(".png", "")
-  const url = `${process.env.BASE_URL}/${path}${qs.stringify(event.queryStringParameters, { addQueryPrefix: true })}`
+  const path = event.path.replace("/.netlify/functions", "").replace("/screenshot", "").replace(".png", "")
+  const url = `${process.env.BASE_URL}${path}${qs.stringify(event.queryStringParameters, { addQueryPrefix: true })}`
 
   const browser = await chromium.puppeteer.launch({
     args: chromium.args,

@@ -5,8 +5,8 @@ const width = 1024
 const height = 1200
 
 exports.handler = async (event, context) => {
-  const path = event.path.replace("/.netlify/functions/print/", "").replace(".pdf", "")
-  const url = `${process.env.BASE_URL}/${path}${qs.stringify(event.queryStringParameters, { addQueryPrefix: true })}`
+  const path = event.path.replace("/.netlify/functions", "").replace("/print", "").replace(".pdf", "")
+  const url = `${process.env.BASE_URL}${path}${qs.stringify(event.queryStringParameters, { addQueryPrefix: true })}`
 
   const browser = await chromium.puppeteer.launch({
     args: chromium.args,
