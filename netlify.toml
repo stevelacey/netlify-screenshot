@@ -3,6 +3,7 @@
 
 [template.environment]
   BASE_URL = "Base URL e.g. https://example.com"
+  AWS_LAMBDA_JS_RUNTIME = "Node runtime (enter \"nodejs12.x\")"
 
 [[redirects]]
   from = "/print/*"
