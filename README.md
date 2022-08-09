@@ -53,6 +53,40 @@ Then your URLs can look something like this:
 | https://coworkations.com/cards/hacker-paradise.png  | https://coworkations.com/cards/hacker-paradise  |
 | https://coworkations.com/cards/pack/ubud-bali-2.png | https://coworkations.com/cards/pack/ubud-bali-2 |
 
+Alternatively, you can route all `/screenshots/` traffic to Netlify, then prefix any path on your site with `/screenshots/` to capture a screenshot.
+
+```
+location /screenshots/ {
+  proxy_pass http://{site-name}.netlify.app/screenshot/;
+}
+```
+
+Note that query params are passed through to your backend, which can be useful if you want to toggle features like Cookiebot or Intercom on/off.
+
+
+Caching
+-------
+
+Netlify Screenshot serves sensible cache headers, and allows you to suffix requests with `.png` which helps reverse proxies like Cloudflare recognize the content as cacheable.
+
+In addition to that, you might want to cache results locally so they don't hit Netlify every time.
+
+To do that, add something like this to your `nginx.conf`:
+
+```
+proxy_cache_path /tmp/nginx levels=1:2 keys_zone=static:10m max_size=10g inactive=7d use_temp_path=off;
+proxy_cache_valid 7d;
+```
+
+And update your location block like so:
+
+```
+location /screenshots/ {
+  proxy_cache static;
+  proxy_pass http://{site-name}.netlify.app/screenshot/;
+}
+```
+
 
 Markup
 ------
