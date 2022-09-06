@@ -1,13 +1,34 @@
 const chromium = require("chrome-aws-lambda")
+const defaults = require("lodash.defaults")
 const qs = require("qs")
+const regexMerge = require("regex-merge")
 
-const width = 1200
-const height = 630
-const maxage = 60 * 60 * 24 * 7
+const pattern = regexMerge(
+  /^(?:\/\.netlify\/functions)?/,
+  /(?:\/screenshot)?/,
+  /(?:\/(?<width>[0-9]+)x(?<height>[0-9]+))?/,
+  /(?<path>\/.*?)/,
+  /(?:\.png)?$/,
+)
+
+const options = {
+  base: process.env.BASE_URL,
+  width: 1200,
+  height: 630,
+  maxage: 60 * 60 * 24 * 7,
+}
 
 exports.handler = async (event, context) => {
-  const path = event.path.replace("/.netlify/functions", "").replace("/screenshot", "").replace(".png", "")
-  const url = `${process.env.BASE_URL}${path}${qs.stringify(event.queryStringParameters, { addQueryPrefix: true })}`
+  const { base, path, width, height, maxage } = (() => {
+    const settings = defaults(event.path.match(pattern).groups, options)
+
+    settings.width = parseInt(settings.width)
+    settings.height = parseInt(settings.height)
+
+    return settings
+  })()
+
+  const url = `${base}${path}${qs.stringify(event.queryStringParameters, { addQueryPrefix: true })}`
 
   const browser = await chromium.puppeteer.launch({
     args: chromium.args,

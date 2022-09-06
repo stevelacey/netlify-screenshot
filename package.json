@@ -8,7 +8,9 @@
   "license": "MIT",
   "dependencies": {
     "chrome-aws-lambda": "^9.1.0",
+    "lodash.defaults": "^4.2.0",
     "puppeteer-core": "^9.1.1",
-    "qs": "^6.10.1"
+    "qs": "^6.10.1",
+    "regex-merge": "^1.0.1"
   }
 }
