@@ -9,6 +9,8 @@ exports.handler = async (event, context) => {
   const path = event.path.replace("/.netlify/functions", "").replace("/print", "").replace(".pdf", "")
   const url = `${process.env.BASE_URL}${path}${qs.stringify(event.queryStringParameters, { addQueryPrefix: true })}`
 
+  await chromium.font("https://raw.githack.com/googlefonts/noto-emoji/main/fonts/NotoColorEmoji.ttf");
+
   const browser = await puppeteer.launch({
     args: chromium.args,
     defaultViewport: chromium.defaultViewport,

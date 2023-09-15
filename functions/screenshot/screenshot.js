@@ -29,6 +29,8 @@ exports.handler = async (event, context) => {
     return settings
   })()
 
+  await chromium.font("https://raw.githack.com/googlefonts/noto-emoji/main/fonts/NotoColorEmoji.ttf");
+
   const url = `${base}${path}${qs.stringify(event.queryStringParameters, { addQueryPrefix: true })}`
 
   const browser = await puppeteer.launch({
