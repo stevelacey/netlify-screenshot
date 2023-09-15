@@ -9,6 +9,7 @@ const pattern = regexMerge(
   /(?:\/screenshot)?/,
   /(?:\/(?<width>[0-9]+)x(?<height>[0-9]+))?/,
   /(?<path>\/.*?)/,
+  /(?:@(?<scale>[2-4])x)?/,
   /(?:\.png)?$/,
 )
 
@@ -17,14 +18,16 @@ const options = {
   width: 1200,
   height: 630,
   maxage: 60 * 60 * 24 * 7,
+  scale: 1,
 }
 
 exports.handler = async (event, context) => {
-  const { base, path, width, height, maxage } = (() => {
+  const { base, path, width, height, maxage, scale } = (() => {
     const settings = defaults(event.path.match(pattern).groups, options)
 
     settings.width = parseInt(settings.width)
     settings.height = parseInt(settings.height)
+    settings.scale = parseInt(settings.scale)
 
     return settings
   })()
@@ -79,7 +82,7 @@ exports.handler = async (event, context) => {
 
   const page = await browser.newPage()
 
-  await page.setViewport({ width, height })
+  await page.setViewport({ width, height, deviceScaleFactor: scale })
 
   await page.goto(url, { waitUntil: "networkidle0" })
 
