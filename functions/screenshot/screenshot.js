@@ -1,5 +1,6 @@
-const chromium = require("chrome-aws-lambda")
+const chromium = require("@sparticuz/chromium")
 const defaults = require("lodash.defaults")
+const puppeteer = require("puppeteer-core")
 const qs = require("qs")
 const regexMerge = require("regex-merge")
 
@@ -30,10 +31,10 @@ exports.handler = async (event, context) => {
 
   const url = `${base}${path}${qs.stringify(event.queryStringParameters, { addQueryPrefix: true })}`
 
-  const browser = await chromium.puppeteer.launch({
+  const browser = await puppeteer.launch({
     args: chromium.args,
     defaultViewport: chromium.defaultViewport,
-    executablePath: await chromium.executablePath,
+    executablePath: await chromium.executablePath(),
     headless: chromium.headless,
   })
 

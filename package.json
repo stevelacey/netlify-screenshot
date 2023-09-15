@@ -7,10 +7,13 @@
   "author": "Steve Lacey <steve@steve.ly>",
   "license": "MIT",
   "dependencies": {
-    "chrome-aws-lambda": "^9.1.0",
+    "@sparticuz/chromium": "113.0.1",
     "lodash.defaults": "^4.2.0",
-    "puppeteer-core": "^9.1.1",
-    "qs": "^6.10.1",
+    "puppeteer-core": "20.1.1",
+    "qs": "^6.11.2",
     "regex-merge": "^1.0.1"
+  },
+  "engines": {
+    "node": "16.20.2"
   }
 }

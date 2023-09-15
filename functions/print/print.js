@@ -1,4 +1,5 @@
-const chromium = require("chrome-aws-lambda")
+const chromium = require("@sparticuz/chromium")
+const puppeteer = require("puppeteer-core")
 const qs = require("qs")
 
 const width = 1024
@@ -8,16 +9,16 @@ exports.handler = async (event, context) => {
   const path = event.path.replace("/.netlify/functions", "").replace("/print", "").replace(".pdf", "")
   const url = `${process.env.BASE_URL}${path}${qs.stringify(event.queryStringParameters, { addQueryPrefix: true })}`
 
-  const browser = await chromium.puppeteer.launch({
+  const browser = await puppeteer.launch({
     args: chromium.args,
     defaultViewport: chromium.defaultViewport,
-    executablePath: await chromium.executablePath,
+    executablePath: await chromium.executablePath(),
     headless: chromium.headless,
   })
 
   const page = await browser.newPage()
 
-  await page.on("dialog", async dialog => dialog.accept(" "))
+  page.on("dialog", async dialog => dialog.accept(" "))
 
   await page.setViewport({ width, height })
 
