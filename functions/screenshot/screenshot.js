@@ -18,23 +18,26 @@ const options = {
   width: 1200,
   height: 630,
   maxage: 60 * 60 * 24 * 7,
+  params: qs.parse(process.env.QUERY_PARAMS),
   scale: 1,
 }
 
 exports.handler = async (event, context) => {
-  const { base, path, width, height, maxage, scale } = (() => {
+  const { base, path, width, height, maxage, params, scale } = (() => {
     const settings = defaults(event.path.match(pattern).groups, options)
 
     settings.width = parseInt(settings.width)
     settings.height = parseInt(settings.height)
     settings.scale = parseInt(settings.scale)
+    settings.params = { ...settings.params, ...event.queryStringParameters }
 
     return settings
   })()
 
   await chromium.font("https://raw.githack.com/googlefonts/noto-emoji/main/fonts/NotoColorEmoji.ttf");
 
-  const url = `${base}${path}${qs.stringify(event.queryStringParameters, { addQueryPrefix: true })}`
+
+  const url = `${base}${path}${qs.stringify(params, { addQueryPrefix: true })}`
 
   const browser = await puppeteer.launch({
     args: [
