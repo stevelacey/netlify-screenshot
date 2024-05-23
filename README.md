@@ -3,7 +3,8 @@ Netlify Screenshot
 
 Screenshot webpages to render social media cards on-the-fly using Puppeteer; largely based on [how Pieter generates shareable pictures](https://levels.io/phantomjs-social-media-share-pictures) for [Nomad List](https://nomadlist.com), and how I did them for [Coworkations](https://coworkations.com) with [cardserver](https://github.com/stevelacey/cardserver).
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/stevelacey/netlify-screenshot)
+> [!WARNING]
+> This project is no longer maintained, check out [stevelacey/cloudflare-screenshot](https://github.com/stevelacey/cloudflare-screenshot)
 
 | [![Coworkations](https://coworkations.com/cards/coworkations.png)](https://coworkations.com/cards/coworkations.png) [📄 HTML](https://coworkations.com/cards/coworkations) [🖼️ PNG](https://coworkations.com/cards/coworkations.png) | [![Hacker Paradise: Cape Town South Africa](https://coworkations.com/cards/hacker-paradise/cape-town-south-africa.png)](https://coworkations.com/cards/hacker-paradise/cape-town-south-africa.png) [📄 HTML](https://coworkations.com/cards/hacker-paradise/cape-town-south-africa) [🖼️ PNG](https://coworkations.com/cards/hacker-paradise/cape-town-south-africa.png) |
 | --: | --: |
@@ -12,6 +13,8 @@ Screenshot webpages to render social media cards on-the-fly using Puppeteer; lar
 
 Setup
 -----
+
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/stevelacey/netlify-screenshot)
 
 After deploying to Netlify and setting `BASE_URL` the site should be good to go, try visiting `https://{site-name}.netlify.app/screenshot` for a capture of your homepage.
 
